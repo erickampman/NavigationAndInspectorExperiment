@@ -11,41 +11,32 @@ struct NavigationMainView: View {
 	@State var library = Library.setData()
 	@State private var navigationPath = NavigationPath()
 
-    var body: some View {
-		NavigationSplitView {
-			VStack(alignment: .leading) {
-				Text(library.id)
-					.font(.title2)
-				NavigationLink("Books", value: library.books)
-					.navigationDestination(for: [Book].self) { book in
-						BookListView(library: library, navigationPath: $navigationPath)
-					}
-
-//				.navigationDestination(for: Book.self) { book in
-//					BookView(book: book, navigationPath: $navigationPath)
-//				}
-//				.navigationDestination(for: Author.self) { author in
-//					AuthorView(author: author, navigationPath: $navigationPath)
-//				}
-			}
-			.padding([.bottom], 10)
+	var body: some View {
+		VStack {
+			Text(library.id)
+				.font(.title2)
 			
-//			VStack(alignment: .leading) {
-//				Text("Authors")
-//					.font(.title2)
-//				List(library.authors) { author in
-//					NavigationLink(author.id, value: author)
-//				}
-//				.navigationDestination(for: Author.self) { author in
-//					AuthorView(author: author, navigationPath: $navigationPath)
-//				}
-//			}
-//			.padding([.bottom], 10)
-		} detail: {
-			Text("Detail View")
+			NavigationSplitView {
+				VStack(alignment: .leading) {
+					NavigationLink("Books", value: library.books)
+						.navigationDestination(for: [Book].self) { book in
+							BookListView(library: library, navigationPath: $navigationPath)
+						}
+				}
+				.padding([.bottom], 10)
+				
+				VStack(alignment: .leading) {
+					NavigationLink("Authors", value: library.authors)
+						.navigationDestination(for: [Author].self) { author in
+							AuthorListView(library: library, navigationPath: $navigationPath)
+						}
+				}
+				.padding([.bottom], 10)
+			} detail: {
+				Text("Detail View")
+			}
 		}
-
-    }
+	}
 }
 
 #Preview {

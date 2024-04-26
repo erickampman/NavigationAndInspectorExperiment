@@ -33,9 +33,12 @@ class Book: Identifiable, Codable, Hashable {
 		self.author = author
 	}
 
-	
 	var title: String
 	var author: Author
+	
+	var id: String {
+		String("\(title) by \(author.id)")
+	}
 }
 
 @Observable

@@ -13,17 +13,18 @@ struct BookListView: View {
 	@State private var selection = Book?.none
 	@State private var inspecting = false
 	@State private var showingAddBook = false
+	
     var body: some View {
 		VStack(alignment: .leading) {
 			HStack {
 				Text("Books")
 					.font(.title2)
-				Button("Add Book") {
+				Button("Add Book", systemImage: "plus") {
 					showingAddBook.toggle()
 				}
 			}
-			List(library.books, id: \.self, selection: $selection) { book in
-				Text(book.title)
+			List($library.books, id: \.self, editActions: .delete, selection: $selection) { book in
+				Text(book.id)
 			}
 			.onChange(of: selection) {
 				inspecting = selection != nil

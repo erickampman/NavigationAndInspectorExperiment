@@ -40,5 +40,6 @@ struct AddBookView: View {
 #Preview {
 	@State var showingAddBook = false
 	@State var library = Library.setData()
+	
 	return AddBookView(library: library, showingAddBook: $showingAddBook)
 }
